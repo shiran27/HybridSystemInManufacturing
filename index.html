@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	
+
+
+	<meta charset="UTF-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<!-- <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0> -->
+	<meta name=viewport content=width=device-width,user-scalable=no,initial-scale=1>
+	
+	<link rel="icon" href="Coverage.jpg">
+	
+	<title>Hybrid System in Manufacturing</title>
+	
+	
+	<script src="libraries/p5.min.js" type="text/javascript"></script>
+	<script src="libraries/p5.dom.min.js" type="text/javascript"></script>
+	<!-- <script src="libraries/p5.sound.min.js" type="text/javascript"></script> -->
+	<script src="libraries/p5.play.js" type="text/javascript"></script>
+	<script src="libraries/math.js" type="text/javascript"></script>
+
+	<script type="text/javascript" src="libraries/math.js"></script>
+	<script type="text/javascript" src="libraries/seedrandom.js"></script>
+	<script type="text/javascript" src="libraries/plotly-latest.min.js"></script>
+	<script type="text/javascript" src="libraries/popper.min.js"></script>
+	<script type="text/javascript" src="libraries/fontawesome.js"></script>
+	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+	
+
+<!-- 	<script src="particle.js"></script>
+	<script src="obstacle.js"></script>
+	<script src="point2.js"></script>
+	<script src="event.js"></script>
+	<script src="simulation.js"></script> -->
+<!-- 	<script src="mathTools.js"></script> -->
+
+
+
+
+	<script src="sketch.js"></script>
+	<script src="interface.js"></script>
+	<script src="plot.js"></script>
+	<!-- <script src="point2.js"></script>
+	
+	<script src="agent.js"></script>
+	<script src="target.js"></script>
+	<script src="path.js"></script>
+	<script src="plot.js"></script> -->
+
+
+  <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" type="text/css" href="libraries/bootstrap.min.css">
+	
+	
+
+
+</head>
+
+
+
+
+
+<body>
+
+	<div class="container">
+		
+		<div class="jumbotron">
+	        
+			<h2 align="center"> Manufacturing as a Hybrid System </h2>
+			<h3 align="center"> (Use of Forward Algorithm) </h3>
+
+
+			<h2 align="center">
+				<img src="QueuePic.jpg" width="400pt">
+			</h2>
+
+		</div>
+	
+	</div>
+
+
+
+	<div class="container">
+		
+		<div class="row">
+
+			<div class="col-lg-12">
+				<h4 class="scrollClass" id="consoleText"></h4>
+			</div>	
+
+		</div>
+
+	</div>
+
+	<div class="row">
+			<hr>
+	</div>
+
+
+	<div class="container">
+		
+		<!-- <div class="row">
+			<hr>
+		</div> -->
+
+		<div class="row">
+
+			<div class="col col-lg-12">
+				
+				<h5>  Arrival Times \(\{a_i\}_{i=0}^N\):</h5>
+						
+				<div class="form-group row">
+
+						<div class="col col-lg-3">
+								<label for="numberOfArrivals">\(N\)=  &nbsp;</label>
+								<input class="form-control" id="numberOfArrivals" type="text" value="20" onchange="numberOfArrivalsChanged(Number(this.value));">
+						</div>
+							
+
+						<div class="col col-lg-3">
+								<label for="arrivalsGenerationMethodDropdownLabel">Generation Method:</label>
+								<select class="custom-select" id="arrivalsGenerationMethodDropdown" onchange="arrivalsGenerationMethodDropdownChanged(Number(this.value));">
+										<option value="0">Deterministic</option>
+										<option value="1">Uniformly Random</option>
+										<option selected value="2">Poisson</option>
+										<option value="3">Custom</option>
+								</select>
+						</div>
+
+						<div class="col col-lg-3">
+								<div class="form-group row">
+									
+									<div class="col col-xs-6" id="arrivalsGenerationParameter1Menu">
+										<label for="arrivalsGenerationParameter1"><span id="arrivalsGenerationParameter1Label"></span></label>
+										<input class="form-control" id="arrivalsGenerationParameter1" type="text" value="1" onchange="arrivalsGenerationParameter1Changed(Number(this.value));">
+									</div>
+									
+									<div class="col col-xs-6" id="arrivalsGenerationParameter2Menu">
+										<label for="arrivalsGenerationParameter2"><span id="arrivalsGenerationParameter2Label"></span></label>
+										<input class="form-control" id="arrivalsGenerationParameter2" type="text" value="5" onchange="arrivalsGenerationParameter2Changed(Number(this.value));">
+									</div>
+
+								</div>
+						</div>
+
+						<div class="col col-lg-3">
+								<!-- <label for="pauseButton">\(N\)=  &nbsp;</label> -->
+								<!-- <label for="generateArrivalTimesButton">Apply: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
+								<button class="btn btn-success" type="button" onclick="generateArrivalTimes();" id="generateArrivalTimesButton">
+										Gen. Arrival Times
+								</button>
+
+								<button class="btn btn-danger" type="button" onclick="updateArrivalTimes();" id="updateArrivalTimesButton">
+										Update
+								</button>
+
+						</div>
+												
+				</div>
+
+				<div class="row" id="arrivalTimesDisplayMenu">
+						
+						<div class="col"></div>
+
+		    				<table class="col table table-bordered matrix" id="arrivalTimesTable">
+						        <tr>
+						          <td contenteditable="true" id="arrivalTimesTableCell0">10</td>
+						          <td contenteditable="true" id="arrivalTimesTableCell0">10</td>
+						        </tr>
+						    </table>
+					    
+					  	<div class="col"></div>
+	            	
+        		</div>
+
+		</div>
+
+	</div>
+		
+
+	<div class="row">
+		<hr>
+	</div>
+
+
+
+
+	<div class="container">
+		
+			<!-- <div class="row">
+				<hr>
+			</div> -->
+	
+		<div class="row">
+	
+				<div class="col col-lg-12">
+					
+					<h5>Required Quality Levels for Arrivals \(\{q_i\}_{i=0}^N\):</h5>
+				
+				
+					<div class="form-group row">
+	
+							<div class="col col-lg-3">
+									
+							</div>
+								
+	
+							<div class="col col-lg-3">
+									<label for="qualityGenerationMethodDropdownLabel">Generation Method:</label>
+									<select class="custom-select" id="qualityGenerationMethodDropdown" onchange="qualityGenerationMethodDropdownChanged(Number(this.value));">
+											<option selected value="0">Deterministic</option>
+											<option value="1">Uniformly Random</option>
+											<option value="3">Custom</option>
+									</select>
+							</div>
+	
+							<div class="col col-lg-3">
+									<div class="form-group row">
+										
+										<div class="col col-xs-6" id="qualityGenerationParameter1Menu">
+											<label for="qualityGenerationParameter1"><span id="qualityGenerationParameter1Label"></span></label>
+											<input class="form-control" id="qualityGenerationParameter1" type="text" value="1" onchange="qualityGenerationParameter1Changed(Number(this.value));">
+										</div>
+										
+										<div class="col col-xs-6" id="qualityGenerationParameter2Menu">
+											<label for="qualityGenerationParameter2"><span id="qualityGenerationParameter2Label"></span></label>
+											<input class="form-control" id="qualityGenerationParameter2" type="text" value="5" onchange="qualityGenerationParameter2Changed(Number(this.value));">
+										</div>
+	
+									</div>
+							</div>
+	
+							<div class="col col-lg-3">
+									<!-- <label for="pauseButton">\(N\)=  &nbsp;</label> -->
+									<!-- <label for="generateArrivalTimesButton">Apply: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
+									<button class="btn btn-success" type="button" onclick="generateRequiredQualityLevels();" id="generateRequiredQualityLevelsButton">
+											Gen. Quality Levels
+									</button>
+	
+									<button class="btn btn-danger" type="button" onclick="updateRequiredQualityLevels();" id="updateRequiredQualityLevelsButton">
+											Update
+									</button>
+	
+							</div>
+
+							
+													
+					</div>
+	
+					<div class="row" id="requiredQualityDisplayMenu">
+							
+							<div class="col"></div>
+	
+								<table class="col table table-bordered matrix" id="requiredQualityTable">
+										<tr>
+											<td contenteditable="true" id="requiredQuality0">10</td>
+											<td contenteditable="true" id="requiredQuality0">30</td>
+										</tr>
+								</table>
+								
+							<div class="col"></div>
+									
+					</div>
+	
+				</div>
+	
+		</div>
+
+	</div>		
+	
+	<div class="row">
+		<hr>
+	</div>
+
+
+	<div class="container">
+		
+			<!-- <div class="row">
+				<hr>
+			</div> -->
+	
+		<div class="row">
+	
+				<div class="col col-lg-12">
+					
+					<h5>Queueing System Specifications:</h5>
+				
+				
+					<div class="form-group row">
+	
+							<div class="col col-lg-3">
+									
+									<label for="departureTimePanalty">Departure Time Panalty (\(\alpha\)):</span></label>
+									<input class="form-control" id="departureTimePanalty" type="text" value="1" onchange="departureTimePanaltyChanged(Number(this.value));">
+									
+							</div>
+
+
+							<div class="col col-lg-3">
+									
+									<label for="controlInputPanalty">Control Input Panalty (\(\beta\)):</span></label>
+									<input class="form-control" id="controlInputPanalty" type="text" value="1" onchange="controlInputPanaltyChanged(Number(this.value));">
+									
+							</div>
+
+							<div class="col col-lg-3">
+									
+									<label for="waitingTimePanalty">Waiting Time Panalty (\(\gamma\)):</span></label>
+									<input class="form-control" id="waitingTimePanalty" type="text" value="1" onchange="waitingTimePanaltyChanged(Number(this.value));">
+									
+							</div>
+													
+					</div>
+	
+				</div>
+	
+		</div>
+
+	</div>
+
+
+	<div class="row">
+			<hr>
+	</div>
+
+
+	<div class="container">
+		
+			<!-- <div class="row">
+				<hr>
+			</div> -->
+	
+		<div class="row">
+	
+				<div class="col col-lg-12">
+					
+					<h5>Solving for Control Inputs \(\{u_i\}_{i=0}^N\):</h5>
+				
+				
+					<div class="form-group row">
+	
+								
+							<div class="col col-lg-3">
+									<label for="controlGenerationMethodDropdownLabel">Solution Generation Method:</label>
+									<select class="custom-select" id="controlGenerationMethodDropdown" onchange="controlGenerationMethodDropdownChanged(Number(this.value));">
+											<option selected value="0">Optimal Control (Forward Alg.)</option>
+											<option value="1">Deterministic</option>
+											<option value="2">Uniformly Random</option>
+											<option value="3">Custom</option>
+									</select>
+							</div>
+	
+							<div class="col col-lg-3">
+									<div class="form-group row">
+										
+										<div class="col col-xs-6" id="controlGenerationParameter1Menu">
+											<label for="controlGenerationParameter1"><span id="controlGenerationParameter1Label"></span></label>
+											<input class="form-control" id="controlGenerationParameter1" type="text" value="1" onchange="controlGenerationParameter1Changed(Number(this.value));">
+										</div>
+										
+										<div class="col col-xs-6" id="controlGenerationParameter2Menu">
+											<label for="controlGenerationParameter2"><span id="controlGenerationParameter2Label"></span></label>
+											<input class="form-control" id="controlGenerationParameter2" type="text" value="5" onchange="controlGenerationParameter2Changed(Number(this.value));">
+										</div>
+	
+									</div>
+							</div>
+	
+							<div class="col col-lg-3">
+									<!-- <label for="pauseButton">\(N\)=  &nbsp;</label> -->
+									<!-- <label for="generateArrivalTimesButton">Apply: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
+									<button class="btn btn-success" type="button" onclick="generateControlInputs();" id="generateControlInputsButton">
+											Gen. Control Inputs
+									</button>
+	
+									<button class="btn btn-danger" type="button" onclick="updateControlInputs());" id="updateControlInputsButton">
+											Update
+									</button>
+	
+							</div>
+
+							<div class="col col-lg-3">
+									<label for="objectiveFunctionValue">Achieved Objective Function Value:</label>
+									<input class="form-control" id="objectiveFunctionValue" style="text-align: center;" type="text" value="0.01" disabled>
+							</div>
+
+							
+													
+					</div>
+	
+					<div class="row" id="controlInputDisplayMenu">
+							
+							<div class="col"></div>
+	
+								<table class="col table table-bordered matrix" id="controlInputTable">
+										<tr>
+											<td contenteditable="true" id="controlInput0">10</td>
+											<td contenteditable="true" id="controlInput0">30</td>
+										</tr>
+								</table>
+								
+							<div class="col"></div>
+									
+					</div>
+	
+				</div>
+	
+		</div>
+
+	</div>		
+	
+	<div class="row">
+		<hr>
+	</div>
+
+
+
+	<div class="container">
+		
+			<!-- <div class="row">
+				<hr>
+			</div> -->
+	
+		<div class="row">
+	
+				<div class="col col-lg-12">
+					
+					<h5>Visualizations: Simulating the Hybrid (Manufacturing) System:</h5>
+				
+					<div class="form-group row">
+	
+							<div class="col col-lg-3">
+									<label for="timeResolution">Time Resolution (\(\Delta t\)): </label>
+									<input class="form-control" id="timeResolution" type="text" value="0.01" onchange="timeResolutionChanged(Number(this.value));">
+							</div>
+	
+							<div class="col col-lg-3">
+									<label for="runSimulationButton">Run / Reset / Refresh Simulation: &nbsp;&nbsp;</label>
+									<button class="btn btn-success" type="button" onclick="runSimulation();" id="runSimulationButton">
+											<i class="fa fa-play"></i>
+									</button>
+									<button class="btn btn-warning" type="button" onclick="removeSimulationButton();" id="removeSimulationResultButton">
+											<i class="fa fa-stop"></i>
+									</button>
+									<button class="btn btn-danger" type="button" onclick="refreshAll();" id="refreshAllButton">
+											<i class="fa fa-refresh"></i>
+									</button>
+							</div>
+
+							<div class="col col-lg-3">
+									<label for="currentObjectiveFunctionValue">Current Objective Function Value:</label>
+									<input class="form-control" id="currentObjectiveFunctionValue" style="text-align: center;" type="text" value="0.01" disabled>
+							</div>
+									
+					</div>
+	
+					
+				</div>
+
+				<div class="col col-lg-12">
+					
+						<div class="row">
+	
+								<div class="col col-lg-7" id="myPlot1"></div>
+
+								<div id="blankColumn" class="col"></div>
+								
+								<div class="col col-lg-4" id="canvasHolder"></div>
+								
+								
+						</div>
+	
+				</div>
+	
+		</div>
+
+	</div>		
+	
+	<div class="row">
+		<hr>
+	</div>
+
+
+	<!-- just have these two lines  all the time-->
+	<script src="libraries/jquery-3.3.1.js" type="text/javascript"></script>
+
+	<script type="text/javascript" src="libraries/bootstrap.min.js"></script>
+
+</body>
+
+
+</html>
+
+
