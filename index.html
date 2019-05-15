@@ -116,13 +116,13 @@
 
 						<div class="col col-lg-3">
 								<label for="numberOfArrivals">\(N\)=  &nbsp;</label>
-								<input class="form-control" id="numberOfArrivals" type="text" value="20" onchange="numberOfArrivalsChanged(Number(this.value));">
+								<input class="form-control" id="numberOfArrivals" type="text" value="20" onchange="generateArrivalTimes();">
 						</div>
 							
 
 						<div class="col col-lg-3">
 								<label for="arrivalsGenerationMethodDropdownLabel">Generation Method:</label>
-								<select class="custom-select" id="arrivalsGenerationMethodDropdown" onchange="arrivalsGenerationMethodDropdownChanged(Number(this.value));">
+								<select class="custom-select" id="arrivalsGenerationMethodDropdown" onchange="generateArrivalTimes();">
 										<option value="0">Deterministic</option>
 										<option value="1">Uniformly Random</option>
 										<option selected value="2">Poisson</option>
@@ -135,12 +135,12 @@
 									
 									<div class="col col-xs-6" id="arrivalsGenerationParameter1Menu">
 										<label for="arrivalsGenerationParameter1"><span id="arrivalsGenerationParameter1Label"></span></label>
-										<input class="form-control" id="arrivalsGenerationParameter1" type="text" value="1" onchange="arrivalsGenerationParameter1Changed(Number(this.value));">
+										<input class="form-control" id="arrivalsGenerationParameter1" type="text" value="1" onchange="generateArrivalTimes();">
 									</div>
 									
 									<div class="col col-xs-6" id="arrivalsGenerationParameter2Menu">
 										<label for="arrivalsGenerationParameter2"><span id="arrivalsGenerationParameter2Label"></span></label>
-										<input class="form-control" id="arrivalsGenerationParameter2" type="text" value="5" onchange="arrivalsGenerationParameter2Changed(Number(this.value));">
+										<input class="form-control" id="arrivalsGenerationParameter2" type="text" value="5" onchange="generateArrivalTimes();">
 									</div>
 
 								</div>
@@ -150,7 +150,7 @@
 								<!-- <label for="pauseButton">\(N\)=  &nbsp;</label> -->
 								<!-- <label for="generateArrivalTimesButton">Apply: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
 								<button class="btn btn-success" type="button" onclick="generateArrivalTimes();" id="generateArrivalTimesButton">
-										Gen. Arrival Times
+										<i class="fa fa-refresh"></i> Arrival Times
 								</button>
 
 								<button class="btn btn-danger" type="button" onclick="updateArrivalTimes();" id="updateArrivalTimesButton">
@@ -165,11 +165,14 @@
 						
 						<div class="col"></div>
 
-		    				<table class="col table table-bordered matrix" id="arrivalTimesTable">
-						        <tr>
+		    				<!-- <table class="col table table-bordered matrix" id="arrivalTimesTable"> -->
+		    				<table class="col table table-bordered" id="arrivalTimesTable">
+		    					<!-- <tbody style="display: block; border: 1px solid green; height: 30px; overflow-y: scroll"> -->
+						        <!-- <tr>
 						          <td contenteditable="true" id="arrivalTimesTableCell0">10</td>
 						          <td contenteditable="true" id="arrivalTimesTableCell0">10</td>
-						        </tr>
+						        </tr> -->
+						        <!-- </tbody> -->
 						    </table>
 					    
 					  	<div class="col"></div>
@@ -210,10 +213,10 @@
 	
 							<div class="col col-lg-3">
 									<label for="qualityGenerationMethodDropdownLabel">Generation Method:</label>
-									<select class="custom-select" id="qualityGenerationMethodDropdown" onchange="qualityGenerationMethodDropdownChanged(Number(this.value));">
+									<select class="custom-select" id="qualityGenerationMethodDropdown" onchange="generateQualityLevels();">
 											<option selected value="0">Deterministic</option>
 											<option value="1">Uniformly Random</option>
-											<option value="3">Custom</option>
+											<option value="2">Custom</option>
 									</select>
 							</div>
 	
@@ -222,12 +225,12 @@
 										
 										<div class="col col-xs-6" id="qualityGenerationParameter1Menu">
 											<label for="qualityGenerationParameter1"><span id="qualityGenerationParameter1Label"></span></label>
-											<input class="form-control" id="qualityGenerationParameter1" type="text" value="1" onchange="qualityGenerationParameter1Changed(Number(this.value));">
+											<input class="form-control" id="qualityGenerationParameter1" type="text" value="1" onchange="generateQualityLevels();">
 										</div>
 										
 										<div class="col col-xs-6" id="qualityGenerationParameter2Menu">
 											<label for="qualityGenerationParameter2"><span id="qualityGenerationParameter2Label"></span></label>
-											<input class="form-control" id="qualityGenerationParameter2" type="text" value="5" onchange="qualityGenerationParameter2Changed(Number(this.value));">
+											<input class="form-control" id="qualityGenerationParameter2" type="text" value="5" onchange="generateQualityLevels();">
 										</div>
 	
 									</div>
@@ -236,11 +239,11 @@
 							<div class="col col-lg-3">
 									<!-- <label for="pauseButton">\(N\)=  &nbsp;</label> -->
 									<!-- <label for="generateArrivalTimesButton">Apply: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
-									<button class="btn btn-success" type="button" onclick="generateRequiredQualityLevels();" id="generateRequiredQualityLevelsButton">
-											Gen. Quality Levels
+									<button class="btn btn-success" type="button" onclick="generateQualityLevels();" id="generateRequiredQualityLevelsButton">
+											<i class="fa fa-refresh"></i>  Quality Levels
 									</button>
 	
-									<button class="btn btn-danger" type="button" onclick="updateRequiredQualityLevels();" id="updateRequiredQualityLevelsButton">
+									<button class="btn btn-danger" type="button" onclick="updateQualityLevels();" id="updateRequiredQualityLevelsButton">
 											Update
 									</button>
 	
@@ -252,12 +255,12 @@
 	
 					<div class="row" id="requiredQualityDisplayMenu">
 							
-							<div class="col"></div>
+							<div class="col scrollClass"></div>
 	
-								<table class="col table table-bordered matrix" id="requiredQualityTable">
+								<table class="col table table-bordered" id="requiredQualityTable">
 										<tr>
-											<td contenteditable="true" id="requiredQuality0">10</td>
-											<td contenteditable="true" id="requiredQuality0">30</td>
+											<!-- <td contenteditable="true" id="Cell0">10</td>
+											<td contenteditable="true" id="Cell1">30</td> -->
 										</tr>
 								</table>
 								
@@ -294,7 +297,7 @@
 							<div class="col col-lg-3">
 									
 									<label for="departureTimePanalty">Departure Time Panalty (\(\alpha\)):</span></label>
-									<input class="form-control" id="departureTimePanalty" type="text" value="1" onchange="departureTimePanaltyChanged(Number(this.value));">
+									<input class="form-control" id="departureTimePanalty" type="text" value="1" onchange="panaltyChanged(1,Number(this.value));">
 									
 							</div>
 
@@ -302,14 +305,14 @@
 							<div class="col col-lg-3">
 									
 									<label for="controlInputPanalty">Control Input Panalty (\(\beta\)):</span></label>
-									<input class="form-control" id="controlInputPanalty" type="text" value="1" onchange="controlInputPanaltyChanged(Number(this.value));">
+									<input class="form-control" id="controlInputPanalty" type="text" value="1" onchange="panaltyChanged(2,Number(this.value));">
 									
 							</div>
 
 							<div class="col col-lg-3">
 									
 									<label for="waitingTimePanalty">Waiting Time Panalty (\(\gamma\)):</span></label>
-									<input class="form-control" id="waitingTimePanalty" type="text" value="1" onchange="waitingTimePanaltyChanged(Number(this.value));">
+									<input class="form-control" id="waitingTimePanalty" type="text" value="1" onchange="panaltyChanged(3,Number(this.value));">
 									
 							</div>
 													
@@ -345,9 +348,9 @@
 								
 							<div class="col col-lg-3">
 									<label for="controlGenerationMethodDropdownLabel">Solution Generation Method:</label>
-									<select class="custom-select" id="controlGenerationMethodDropdown" onchange="controlGenerationMethodDropdownChanged(Number(this.value));">
-											<option selected value="0">Optimal Control (Forward Alg.)</option>
-											<option value="1">Deterministic</option>
+									<select class="custom-select" id="controlGenerationMethodDropdown" onchange="controlGenerationMethodDropdownChanged();">
+											<option value="0">Optimal Control (Forward Alg.)</option>
+											<option selected value="1">Deterministic</option>
 											<option value="2">Uniformly Random</option>
 											<option value="3">Custom</option>
 									</select>
@@ -358,12 +361,12 @@
 										
 										<div class="col col-xs-6" id="controlGenerationParameter1Menu">
 											<label for="controlGenerationParameter1"><span id="controlGenerationParameter1Label"></span></label>
-											<input class="form-control" id="controlGenerationParameter1" type="text" value="1" onchange="controlGenerationParameter1Changed(Number(this.value));">
+											<input class="form-control" id="controlGenerationParameter1" type="text" value="1" onchange="controlGenerationMethodDropdownChanged();">
 										</div>
 										
 										<div class="col col-xs-6" id="controlGenerationParameter2Menu">
 											<label for="controlGenerationParameter2"><span id="controlGenerationParameter2Label"></span></label>
-											<input class="form-control" id="controlGenerationParameter2" type="text" value="5" onchange="controlGenerationParameter2Changed(Number(this.value));">
+											<input class="form-control" id="controlGenerationParameter2" type="text" value="5" onchange="controlGenerationMethodDropdownChanged();">
 										</div>
 	
 									</div>
@@ -372,11 +375,11 @@
 							<div class="col col-lg-3">
 									<!-- <label for="pauseButton">\(N\)=  &nbsp;</label> -->
 									<!-- <label for="generateArrivalTimesButton">Apply: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> -->
-									<button class="btn btn-success" type="button" onclick="generateControlInputs();" id="generateControlInputsButton">
-											Gen. Control Inputs
+									<button class="btn btn-success" type="button" onclick="controlGenerationMethodDropdownChanged();" id="generateControlInputsButton">
+											<span id="controlInputgenerationButtonName"></span> 
 									</button>
 	
-									<button class="btn btn-danger" type="button" onclick="updateControlInputs());" id="updateControlInputsButton">
+									<button class="btn btn-danger" type="button" onclick="updateControlInputs();" id="updateControlInputsButton">
 											Update
 									</button>
 	
@@ -395,7 +398,7 @@
 							
 							<div class="col"></div>
 	
-								<table class="col table table-bordered matrix" id="controlInputTable">
+								<table class="col table table-bordered" id="controlInputTable">
 										<tr>
 											<td contenteditable="true" id="controlInput0">10</td>
 											<td contenteditable="true" id="controlInput0">30</td>
@@ -432,7 +435,25 @@
 				
 					<div class="form-group row">
 	
+							
+
+							<div class="col col-lg-4">
+								<label for="realizationSelectDropDown">Add / Remove / Select a realization: 
+									<button class="btn btn-success" type="button" onclick="addRealization();"> <i class="fa fa-plus"></i></button>
+									<button class="btn btn-danger" type="button" onclick="removeRealization();"> <i class="fa fa-minus"></i></button>
+								</label>
+								<select class="custom-select" id="realizationSelectDropDown" onchange="realizationSelectDropdownChanged();">	
+									<!-- <option value="0">Optimal Control (Forward Alg.)</option> -->
+								</select>	
+							
+							</div>
+
 							<div class="col col-lg-3">
+									<label for="currentObjectiveFunctionValue">Objective Function Value:</label>
+									<input class="form-control" id="currentObjectiveFunctionValue" style="text-align: center;" type="text" value="0.01" disabled>
+							</div>
+
+							<div class="col col-lg-2">
 									<label for="timeResolution">Time Resolution (\(\Delta t\)): </label>
 									<input class="form-control" id="timeResolution" type="text" value="0.01" onchange="timeResolutionChanged(Number(this.value));">
 							</div>
@@ -448,11 +469,6 @@
 									<button class="btn btn-danger" type="button" onclick="refreshAll();" id="refreshAllButton">
 											<i class="fa fa-refresh"></i>
 									</button>
-							</div>
-
-							<div class="col col-lg-3">
-									<label for="currentObjectiveFunctionValue">Current Objective Function Value:</label>
-									<input class="form-control" id="currentObjectiveFunctionValue" style="text-align: center;" type="text" value="0.01" disabled>
 							</div>
 									
 					</div>

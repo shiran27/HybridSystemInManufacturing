@@ -8,7 +8,7 @@ function plotData(){
 	   	
 	   	var plotLayout1 = 
 			{
-				title: 'Evolution of Objective Function Value', 
+				title: 'Evolution of Que Length', 
 				////autosize: true,
 			    //width: 1000,
 			    height: 350,
