@@ -20,7 +20,10 @@ function setup() {
     Math.seedrandom('27');
     initialDataReadFromInterface()
 
+    plotData();
+
     frameRate(1/timeResolution);
+
 
     consolePrint("User interface loaded.");
     
@@ -38,9 +41,11 @@ function draw() {
     rect(0,0,width,height);
 
 
+    if(simulationMode==1){
 
-    updateInterface();
+        updateInterface();
 
+    }
 
     
 

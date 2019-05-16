@@ -17,10 +17,9 @@ var queueLengthPlotMode = true;
 eventTimeArray = [0,1,1.5,2.3,6,10,15.2];
 queueLengthArray = [0,1,2,3,4,5,4];
 
-function updateInterface(){
-    plotData();
+var simulations = [];
 
-}
+
 
 function initialDataReadFromInterface(){
 
@@ -35,8 +34,6 @@ function initialDataReadFromInterface(){
 
 	controlGenerationMethodDropdownChanged();
 	
-	
-
 }
 
 
@@ -446,17 +443,46 @@ function updateControlInputs(){
 
 function addRealization(){
 
+	var newSimulation = new Simulation(numberOfArrivals,arrivalTimesArray,qualityLevelsArray,departureTimePanaltyAlpha,controlInputPanaltyBeta,waitingPanaltyGamma,controlInputArray);
+	simulations.push(newSimulation);
+	document.getElementById("currentObjectiveFunctionValue").value= newSimulation.objectiveFunctionValue.toFixed(3);
 
+	document.getElementById("realizationSelectDropDown").innerHTML += "<option selected value='"+newSimulation.id+"'>Simulation "+(newSimulation.id+1)+" (cost "+newSimulation.objectiveFunctionValue.toFixed(0)+")</option>";
 	consolePrint("Obtained simulation results and the parameters were added as a realization!");
+
+	updateStaticPlots();
 }
 
 function removeRealization(){
 
-	consolePrint("Selected realization was removed succesfully!");
+	var selectedSimulationID = document.getElementById("realizationSelectDropDown").value;
+	simulations.splice(selectedSimulationID,1);
+
+	document.getElementById("realizationSelectDropDown").innerHTML = "";
+	for(var i = 0; i<simulations.length; i++){
+		simulations[i].id = i;
+		document.getElementById("realizationSelectDropDown").innerHTML += "<option value='"+i+"'>Simulation "+(i+1)+" (cost "+simulations[i].objectiveFunctionValue.toFixed(0)+")</option>";
+	}
+
+		
+	document.getElementById("realizationSelectDropDown").value = 0;
+	consolePrint("Selected realization (ID: "+(selectedSimulationID+1)+" before) was removed succesfully!");
+
+	if(simulations.length==0){
+		plotData();
+		document.getElementById("currentObjectiveFunctionValue").value= 0;
+	}else{
+		updateStaticPlots();
+		document.getElementById("currentObjectiveFunctionValue").value= simulations[0].objectiveFunctionValue.toFixed(3);	
+	}
+	
 }
 
-function realizationSelectDropDownChanged(){
 
+
+function realizationSelectDropdownChanged(){
+	var id = document.getElementById("realizationSelectDropDown").value;
+	document.getElementById("currentObjectiveFunctionValue").value = simulations[id].objectiveFunctionValue.toFixed(3);	
 	consolePrint("Selected Realization Changed");
 }
 
@@ -486,22 +512,16 @@ function consolePrint(consoleText){
 
 
 
-function solveForControlInputs(){
-	result = [];
-	for(var i = 0; i<numberOfArrivals; i++){
-		result.push(i);
-	}
-	return result;
 
-	//// known variables:  (to compute the  controlInputArray)
+function updateInterface(){
 
-	//numberOfArrivals;
-	//arrivalTimesArray;
-	//qualityLevelsArray;
-	//departureTimePanaltyAlpha; 
-	//controlInputPanaltyBeta; 
-	//waitingTimePanaltyGamma; 
-
-
+	
 
 }
+
+
+
+
+
+
+

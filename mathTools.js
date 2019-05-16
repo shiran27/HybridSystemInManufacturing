@@ -21,3 +21,32 @@ function generateDeterministic(rate){
 	return 1/rate;
 
 }
+
+function sq(val){
+	return	Math.pow(val,2);
+}
+
+
+
+
+
+
+function solveForControlInputs(){
+	result = [];
+	for(var i = 0; i<numberOfArrivals; i++){
+		result.push(i);
+	}
+	return result;
+
+	//// known variables:  (to compute the  controlInputArray)
+
+	//numberOfArrivals;
+	//arrivalTimesArray;
+	//qualityLevelsArray;
+	//departureTimePanaltyAlpha; 
+	//controlInputPanaltyBeta; 
+	//waitingTimePanaltyGamma; 
+
+
+
+}
