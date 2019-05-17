@@ -114,9 +114,15 @@ function Simulation(N,aArray,qArray,alpha,beta,gamma,uArray) {
 		if(currentQueueLength > this.currentQueueLength){ // arrival has occured !
 			
 			var i = entities.length;
-			entities.push(new Entity(simulationTime,this.arrivalTimesArray[i],this.qualityLevelsArray[i],this.controlInputsArray[i],this.departureTimeArray[i]));
+			newEntity = new Entity(simulationTime,this.arrivalTimesArray[i],this.qualityLevelsArray[i],this.controlInputsArray[i],this.departureTimeArray[i]);
+			newEntity.targetQueueSlot = currentQueueLength-1; // 0 if server is the slot
+			entities.push(newEntity);
 			consolePrint("New job arrives at t = "+simulationTime.toFixed(2)); 
 
+		}else if(currentQueueLength < this.currentQueueLength){ // departure
+			for(var i = 0; i<entities.length; i++){
+				entities[i].targetQueueSlot = entities[i].targetQueueSlot - 1;
+			}
 		}
 
 		this.currentQueueLength = currentQueueLength; // update the discrete state of the simulation - discrete
