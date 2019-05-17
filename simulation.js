@@ -20,6 +20,8 @@ function Simulation(N,aArray,qArray,alpha,beta,gamma,uArray) {
 	this.eventTimeArray = [];		// t
 	this.queueLengthArray = [];		// X(t)
 
+	// for real-time simulations
+	this.currentQueueLength = 0;
 
 	this.simulateDES = function(){
 
@@ -103,6 +105,70 @@ function Simulation(N,aArray,qArray,alpha,beta,gamma,uArray) {
 
 
 
+	this.update = function(){
+		// use simulation time to identify the state of the system and draw the diagram
+		
+		// what is the queue length corresponding to currens simulation time?
+		var currentQueueLength = this.getCurrentQueueLength();
+
+		if(currentQueueLength > this.currentQueueLength){ // arrival has occured !
+			
+			var i = entities.length;
+			entities.push(new Entity(simulationTime,this.arrivalTimesArray[i],this.qualityLevelsArray[i],this.controlInputsArray[i],this.departureTimeArray[i]));
+			consolePrint("New job arrives at t = "+simulationTime.toFixed(2)); 
+
+		}
+
+		this.currentQueueLength = currentQueueLength; // update the discrete state of the simulation - discrete
+		this.physicalStateUpdate(); // updating the continuous state of the system (individual physical entities)
+		showPointInPlot();
+
+	}
+
+	this.physicalStateUpdate = function(){
+		for(var i = 0 ; i<entities.length; i++){
+			entities[i].update();
+			entities[i].show();
+		}
+	}
+
+	this.getCurrentQueueLength = function(){
+		// use simulationTime
+		for(var i = 0; i<this.eventTimeArray.length-1; i++){
+
+			if(this.eventTimeArray[i]<=simulationTime && simulationTime<this.eventTimeArray[i+1]){
+				return this.queueLengthArray[i];
+			}
+
+		}
+		if(simulationTime<this.eventTimeArray[0]){
+			return 0; // before the first arrival
+		}else if(simulationTime>this.eventTimeArray[i]){
+			return 0; // after the last departure
+		}
+	}
+
+
+
+
+
+	this.getMaximumQuality = function(){
+		var maximumQualityFound = 0;
+		for(var i = 0; i<this.qualityLevelsArray.length; i++){
+			if(this.qualityLevelsArray[i]>=maximumQualityFound){
+				maximumQualityFound = this.qualityLevelsArray[i];
+			}
+		}
+		return maximumQualityFound;
+	}
+
+
+
+
+
+
+
+
 
 	// simulate and load the temporary valuesvalues
 	this.simulateDES();
@@ -112,5 +178,9 @@ function Simulation(N,aArray,qArray,alpha,beta,gamma,uArray) {
 
 
 }
+
+
+
+
 
 

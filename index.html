@@ -43,7 +43,9 @@
 	<script src="sketch.js"></script>
 	<script src="interface.js"></script>
 	<script src="simulation.js"></script>
+	<script src="entity.js"></script>
 	<script src="plot.js"></script>
+	<script src="point2.js"></script>
 	<!-- <script src="point2.js"></script>
 	
 	<script src="agent.js"></script>
@@ -224,8 +226,8 @@
 							<div class="col col-lg-3">
 									<label for="qualityGenerationMethodDropdownLabel">Generation Method:</label>
 									<select class="custom-select" id="qualityGenerationMethodDropdown" onchange="generateQualityLevels();">
-											<option selected value="0">Deterministic</option>
-											<option value="1">Uniformly Random</option>
+											<option value="0">Deterministic</option>
+											<option selected value="1">Uniformly Random</option>
 											<option value="2">Custom</option>
 									</select>
 							</div>
@@ -360,8 +362,8 @@
 									<label for="controlGenerationMethodDropdownLabel">Solution Generation Method:</label>
 									<select class="custom-select" id="controlGenerationMethodDropdown" onchange="controlGenerationMethodDropdownChanged();">
 											<option value="0">Optimal Control (Forward Alg.)</option>
-											<option selected value="1">Deterministic</option>
-											<option value="2">Uniformly Random</option>
+											<option value="1">Deterministic</option>
+											<option selected value="2">Uniformly Random</option>
 											<option value="3">Custom</option>
 									</select>
 							</div>
@@ -469,11 +471,14 @@
 							</div>
 	
 							<div class="col col-lg-3">
-									<label for="runSimulationButton">Run / Reset / Refresh Simulation: &nbsp;&nbsp;</label>
+									<label for="runSimulationButton">Run / Pause / Reset / Refresh Sim.:</label>
 									<button class="btn btn-success" type="button" onclick="runSimulation();" id="runSimulationButton">
 											<i class="fa fa-play"></i>
 									</button>
-									<button class="btn btn-warning" type="button" onclick="removeSimulationButton();" id="removeSimulationResultButton">
+									<button class="btn btn-warning" type="button" onclick="pauseSimulation();" id="pauseSimulationButton">
+											<i class="fa fa-pause"></i>
+									</button>
+									<button class="btn btn-warning" type="button" onclick="resetSimulation();" id="resetSimulationButton">
 											<i class="fa fa-stop"></i>
 									</button>
 									<button class="btn btn-danger" type="button" onclick="refreshAll();" id="refreshAllButton">

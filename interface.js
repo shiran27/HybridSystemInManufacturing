@@ -8,10 +8,15 @@ var controlInputPanaltyBeta;
 var waitingTimePanaltyGamma; 
 
 var timeResolution;
-
-
-
+var simulationTime = 0;
+var frameRate = 1;
+var entities = [];
+var selectedSimulationID = 0;
 var simulationMode = 0;
+
+
+
+
 var queueLengthPlotMode = true;
 
 eventTimeArray = [0,1,1.5,2.3,6,10,15.2];
@@ -513,11 +518,9 @@ function consolePrint(consoleText){
 
 
 
-function updateInterface(){
 
-	
 
-}
+
 
 
 
