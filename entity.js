@@ -40,7 +40,7 @@ function Entity(simT,arrivalTime,qualityLevel,controlInput,departureTime){
 
 			
 			var targetPositionInQueue = 300-serverRadius-this.targetQueueSlot*20;
-			if(this.id==entities.length-1 && this.targetQueueSlot>1){
+			if(this.id==entities.length-1 && this.targetQueueSlot>=1){
 				this.position.x = this.position.x + 20;
 				if(this.position.x>targetPositionInQueue){
 					this.position.x = targetPositionInQueue;

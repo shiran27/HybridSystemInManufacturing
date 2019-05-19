@@ -46,6 +46,7 @@
 	<script src="entity.js"></script>
 	<script src="plot.js"></script>
 	<script src="point2.js"></script>
+	<script src="mathTools.js"></script>
 	<!-- <script src="point2.js"></script>
 	
 	<script src="agent.js"></script>
@@ -361,9 +362,9 @@
 							<div class="col col-lg-3">
 									<label for="controlGenerationMethodDropdownLabel">Solution Generation Method:</label>
 									<select class="custom-select" id="controlGenerationMethodDropdown" onchange="controlGenerationMethodDropdownChanged();">
-											<option value="0">Optimal Control (Forward Alg.)</option>
+											<option selected value="0">Optimal Control (Forward Alg.)</option>
 											<option value="1">Deterministic</option>
-											<option selected value="2">Uniformly Random</option>
+											<option value="2">Uniformly Random</option>
 											<option value="3">Custom</option>
 									</select>
 							</div>

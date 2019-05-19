@@ -2,6 +2,7 @@ var numberOfArrivals;
 
 var arrivalTimesArray;
 var qualityLevelsArray;
+var controlInputArray;
 
 var departureTimePanaltyAlpha; 
 var controlInputPanaltyBeta; 
@@ -19,8 +20,10 @@ var simulationMode = 0;
 
 var queueLengthPlotMode = true;
 
-eventTimeArray = [0,1,1.5,2.3,6,10,15.2];
-queueLengthArray = [0,1,2,3,4,5,4];
+var eventTimeArray = [];
+// var eventTimeArray = [0,1,1.5,2.3,6,10,15.2];
+// var queueLengthArray = [0,1,2,3,4,5,4];
+var queueLengthArray = [];
 
 var simulations = [];
 
@@ -31,7 +34,7 @@ function initialDataReadFromInterface(){
 	numberOfArrivals = Number(document.getElementById("numberOfArrivals").value);
 	departureTimePanaltyAlpha = Number(document.getElementById("departureTimePanalty").value);
 	controlInputPanaltyBeta = Number(document.getElementById("controlInputPanalty").value); 
-	waitingPanaltyGamma = Number(document.getElementById("waitingTimePanalty").value); 
+	waitingTimePanaltyGamma = Number(document.getElementById("waitingTimePanalty").value); 
 	timeResolution = Number(document.getElementById("timeResolution").value); 
 	
 	generateArrivalTimes();
@@ -45,7 +48,7 @@ function initialDataReadFromInterface(){
 function generateArrivalTimes(){
 
 	numberOfArrivals = Number(document.getElementById("numberOfArrivals").value);
-	newArrivalTimesArray = [];
+	var newArrivalTimesArray = [];
 	
 	var arrivalTimesGenerationMethod = Number(document.getElementById("arrivalsGenerationMethodDropdown").value);
 	
@@ -146,7 +149,7 @@ function generateArrivalTimes(){
 function generateQualityLevels(){
 
 	numberOfArrivals = Number(document.getElementById("numberOfArrivals").value);
-	newQualityLevelsArray = [];
+	var newQualityLevelsArray = [];
 	
 	var qualityLevelsGenerationMethod = Number(document.getElementById("qualityGenerationMethodDropdown").value);
 	
@@ -231,7 +234,7 @@ function controlGenerationMethodDropdownChanged(){
 
 	// number of arrivals, arrival time values, quality values and panelty parameters are known!
 
-	newControlInputArray = [];
+	var newControlInputArray = [];
 	
 	var controlInputGenerationMethod = Number(document.getElementById("controlGenerationMethodDropdown").value);
 	
@@ -448,7 +451,7 @@ function updateControlInputs(){
 
 function addRealization(){
 
-	var newSimulation = new Simulation(numberOfArrivals,arrivalTimesArray,qualityLevelsArray,departureTimePanaltyAlpha,controlInputPanaltyBeta,waitingPanaltyGamma,controlInputArray);
+	var newSimulation = new Simulation(numberOfArrivals,arrivalTimesArray,qualityLevelsArray,departureTimePanaltyAlpha,controlInputPanaltyBeta,waitingTimePanaltyGamma,controlInputArray);
 	simulations.push(newSimulation);
 	document.getElementById("currentObjectiveFunctionValue").value= newSimulation.objectiveFunctionValue.toFixed(3);
 
@@ -498,13 +501,13 @@ function realizationSelectDropdownChanged(){
 
 function panaltyChanged(id,value){
 	if(id == 1){
-		departureTimePanalty = value;
+		departureTimePanaltyAlpha = value;
 		consolePrint("Deprature time panalty changed to "+value);
 	}else if(id == 2){
-		controlInputPanalty = value;
+		controlInputPanaltyBeta	= value;
 		consolePrint("Control input panalty changed to "+value);
 	}else if(id == 3){
-		waitingTimePanalty = value;
+		waitingTimePanaltyGamma = value;
 		consolePrint("Waiting time panalty changed to "+value);
 	}
 }
