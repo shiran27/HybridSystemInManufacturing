@@ -41,7 +41,6 @@ function solveForControlInputs(){
 		controlInputArray.push(i);
 	}
 
-
 	// foward algorithm
 	var k = 0;
 	var n = 0;
@@ -57,12 +56,8 @@ function solveForControlInputs(){
 	}	
 
 
-	//quickSolve(0,numberOfArrivals-1); // solving Problem Q(k,n) use - computer indexes
-
-	
+	//quickSolve(0,numberOfArrivals-1); // solving Problem Q(k,n) use - computer indexes	
 	return controlInputArray;
-
-
 
 }
 
@@ -119,6 +114,8 @@ function quickSolve(k,n){
 			sumGrad	= sumGrad + sq(grad_m);
 			sNew[m] = s_m;
 		}
+
+		// convergence test
 		if(Math.sqrt(sumGrad)<0.001){
 			print("Optimum found! K ="+K);
 			K = maxStepsCounts;
@@ -139,17 +136,7 @@ function quickSolve(k,n){
 		}
 			// end projection
 
-
-
-
 		s = sNew;
-		// if(checkFeasibility(a,sNew,k,n)){
-		// 	print("Feasible update at step = "+K)
-		// 	s = sNew;
-		// }else{
-		// 	s = sNew;
-		// 	print("Need to project!")
-		// }
 	}
 
 	// end gradient descent
