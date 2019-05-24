@@ -26,7 +26,7 @@ var eventTimeArray = [];
 var queueLengthArray = [];
 
 var simulations = [];
-
+var tempSimulation;
 
 
 function initialDataReadFromInterface(){
@@ -327,6 +327,15 @@ function controlGenerationMethodDropdownChanged(){
 	controlInputArray = newControlInputArray;
 	// displaying values
 	createTable("controlInputTable",controlInputArray);
+
+
+	tempSimulation = new Simulation(numberOfArrivals,arrivalTimesArray,qualityLevelsArray,departureTimePanaltyAlpha,controlInputPanaltyBeta,waitingTimePanaltyGamma,controlInputArray);
+	var jVal = tempSimulation.evaluateObjectiveFunction();
+	consolePrint("Objective function value achieved by the selected control inpits: J = " + jVal.toFixed(3));
+	////document.getElementById('objectiveFunctionValue').disabled = false;
+	document.getElementById('objectiveFunctionValue').value = jVal.toFixed(3);
+
+
 
 	
 }
