@@ -321,7 +321,6 @@ function controlGenerationMethodDropdownChanged(){
 
 		newControlInputArray = solveForControlInputs();
 		
-		
 	}
 
 	controlInputArray = newControlInputArray;

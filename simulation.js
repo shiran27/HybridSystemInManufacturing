@@ -97,6 +97,7 @@ function Simulation(N,aArray,qArray,alpha,beta,gamma,uArray) {
 		}
 		print("Cost of simulation: "+cost);
 		consolePrint("Cost of the added simulation: "+ cost);
+		
 		return cost;
 	}
 
